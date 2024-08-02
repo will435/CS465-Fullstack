@@ -18,10 +18,14 @@
 							<ul id="sites">
 								{{#each trips}}
 								<li>
-									<a href="#"><img src="{{this.image}}" alt="Img"></a>
-									 <h2><a href="#">{{this.name}}</a></h2>
-									  <p>{{this.description}}</p>
-									   </li>
+									<a href="/api/trips/{{this.code}}">
+									<img src="{{this.image}}" alt="Img">
+									</a>
+									<h2>
+										<a href="/travel/{{this.code}}">{{this.name}}</a>
+										</h2>
+										<p>{{this.description}}</p>
+										</li>
 									    {{/each}}
 										</ul>
 										</div>
