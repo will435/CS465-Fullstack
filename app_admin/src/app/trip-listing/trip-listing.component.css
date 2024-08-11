@@ -1,0 +1,19 @@
+.row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .trip-card {
+    position: relative;
+    margin-right: 10px;
+  }
+  
+  .trip-card:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0px;
+    width: 1px;
+    height: 100%;
+    background-color: #ccc;
+  }
