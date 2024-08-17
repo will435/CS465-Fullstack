@@ -14,7 +14,6 @@ import { Trip } from '../models/trip';
 })
 export class EditTripComponent implements OnInit {
   public editForm!: FormGroup;
-  trip!: Trip;
   submitted = false;
   message: string = '';
 
@@ -46,10 +45,9 @@ export class EditTripComponent implements OnInit {
   
     this.tripDataService.getTrip(tripCode)
       .subscribe({
-        next: (trip: Trip) => {
-          console.log('Trip data:', trip); // Log the trip data
+        next: (trips: Trip[]) => {
+          const trip = trips[0]; // Assuming it returns an array
           if (trip) {
-            this.trip = trip;
             this.editForm.patchValue(trip);
             this.message = `Trip: ${tripCode} retrieved`;
           } else {
@@ -62,6 +60,23 @@ export class EditTripComponent implements OnInit {
         }
       });
   }
-  // Get the form short name to access the form fields
-  get f() { return this.editForm.controls; }
+
+  onSubmit(): void {
+    this.submitted = true;
+    if (this.editForm.valid) {
+      this.tripDataService.updateTrip(this.editForm.value)
+        .subscribe({
+          next: () => {
+            this.router.navigate(['']);
+          },
+          error: (error: any) => {
+            console.log('Error: ' + error);
+          }
+        });
+    }
+  }
+
+  get f() {
+    return this.editForm.controls;
+  }
 }
